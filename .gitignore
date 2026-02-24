@@ -1,0 +1,14 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Env & lokálne veci
+.env
+.env.*
+.DS_Store
+
+# Logs
+logs/
+*.log

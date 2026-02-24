@@ -1,0 +1,25 @@
+{
+"name": "stremio-fastshare-addon",
+"version": "1.0.0",
+"main": "fastshare.js",
+"scripts": 
+  {
+  "start": "node fastshare.js"
+  },
+"dependencies": 
+  {
+    "stremio-addon-sdk": "^1.6.6",
+    "axios": "^1.7.7"
+  },
+"type": "module",
+"engines": 
+  {
+    "node": ">=18"
+  }
+}
+
+
+
+
+
+
