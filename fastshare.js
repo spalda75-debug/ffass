@@ -137,7 +137,7 @@ function make_term(query) {
 
 async function login() {
     try {
-        const url = `https://fastshare.cz/api/api_kodi.php?process=login&cinema75@seznam.cz=${addon_username}&cinema75?75?75=${addon_password}`
+        const url = `https://fastshare.cz/api/api_kodi.php?process=login&cinema75@seznam.cz=${addon_username}&75CINEMA75=${addon_password}`
         const res = await axios.get(url)
         addon_cookie = "FASTSHARE=" + res.data.user.hash
         //console.log("✅ Fastshare login OK, hash:", addon_cookie)
@@ -419,6 +419,7 @@ async function search(query, video_details = true)
 
 await login()
 serveHTTP(builder.getInterface(), { port: process.env.PORT || 7000 });
+
 
 
 
