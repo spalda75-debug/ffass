@@ -5,8 +5,8 @@ const { addonBuilder, serveHTTP } = pkg;
 
 //import { addonBuilder, serveHTTP } from "stremio-addon-sdk";
 import axios from "axios";
-const addon_username = "cafdfdfm.cz"
-const addon_password = "fdffd5"
+const addon_username = process.env.FASTSHARE_USER
+const addon_password = process.env.FASTSHARE_PASS
 let addon_cookie = ""
 
 const builder = new addonBuilder({
@@ -136,14 +136,18 @@ function make_term(query) {
 }
 
 async function login() {
-    try {
-        const url = `https://fastshare.cz/api/api_kodi.php?process=login&login=${addon_username}&password=${addon_password}`
-        const res = await axios.get(url)
-        addon_cookie = "FASTSHARE=" + res.data.user.hash
-        //console.log("✅ Fastshare login OK, hash:", addon_cookie)
-    } catch (err) {
-        console.error("❌ Fastshare login error:", err.message)
+  try {
+    if (!addon_username || !addon_password) {
+      console.error("❌ FASTSHARE_USER / FASTSHARE_PASS nejsou nastavené v ENV")
+      return
     }
+
+    const url = `https://fastshare.cz/api/api_kodi.php?process=login&login=${encodeURIComponent(addon_username)}&password=${encodeURIComponent(addon_password)}`
+    const res = await axios.get(url)
+    addon_cookie = "FASTSHARE=" + res.data.user.hash
+  } catch (err) {
+    console.error("❌ Fastshare login error:", err.message)
+  }
 }
 
 async function get_html(url, addon_cookie) {
@@ -419,6 +423,7 @@ async function search(query, video_details = true)
 
 await login()
 serveHTTP(builder.getInterface(), { port: process.env.PORT || 7000 });
+
 
 
 
